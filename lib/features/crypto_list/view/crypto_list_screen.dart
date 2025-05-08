@@ -22,7 +22,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
 
   @override
   void initState() {
-    _cryptoListBloc.add(CryptoListLoading());
+    _cryptoListBloc.add(LoadCryptoList());
     super.initState();
   }
 
@@ -57,7 +57,6 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
       body: BlocBuilder<CryptoListBloc, CryptoListBlocState>(
         bloc: _cryptoListBloc,
         builder: (context, state) {
-          print(state);
           if (state is CryptoListLoaded) {
             return ListView.separated(
               itemCount: state.coinsList.length,
@@ -70,14 +69,24 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
           }
 
           if (state is CryptoListLoadingFailure) {
-            return const Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Something went wrong'),
-                  Text(
+                  const Text('Something went wrong'),
+                  const Text(
                     'Please try again later',
                     style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: TextButton(
+                      onPressed: () => _cryptoListBloc.add(LoadCryptoList()),
+                      child: const Text(
+                        'Try again',
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                    ),
                   ),
                 ],
               ),

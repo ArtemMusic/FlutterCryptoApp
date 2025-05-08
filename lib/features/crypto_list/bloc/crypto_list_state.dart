@@ -4,6 +4,8 @@ class CryptoListBlocState {}
 
 class CryptoListBlocInitial extends CryptoListBlocState {}
 
+class CryptoListLoading extends CryptoListBlocState {}
+
 class CryptoListLoaded extends CryptoListBlocState {
   CryptoListLoaded({required this.coinsList});
   final List<CryptoCoin> coinsList;
