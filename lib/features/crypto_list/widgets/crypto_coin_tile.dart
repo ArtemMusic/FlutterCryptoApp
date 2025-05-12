@@ -9,18 +9,21 @@ class CryptoCoinTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return ListTile(
-      title: Text(coin.title, style: theme.textTheme.bodyMedium),
-      subtitle: Text(
-        '${coin.priceInUsd} \$',
-        style: theme.textTheme.labelSmall,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: ListTile(
+        title: Text(coin.title, style: theme.textTheme.bodyMedium),
+        subtitle: Text(
+          '${coin.priceInUsd} \$',
+          style: theme.textTheme.labelSmall,
+        ),
+        trailing: const Icon(Icons.arrow_forward_ios),
+        leading: Image.network(coin.imageUrl),
+        onTap:
+            () => Navigator.of(
+              context,
+            ).pushNamed('/current_crypto', arguments: coin.title),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios),
-      leading: Image.network(coin.imageUrl),
-      onTap:
-          () => Navigator.of(
-            context,
-          ).pushNamed('/current_crypto', arguments: coin.title),
     );
   }
 }
