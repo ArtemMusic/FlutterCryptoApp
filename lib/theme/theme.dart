@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 final ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
+  colorScheme: const ColorScheme.light(
+    primary: Color.fromARGB(255, 221, 221, 221),
+  ),
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: Colors.black87,
   ),
@@ -10,6 +13,11 @@ final ThemeData lightMode = ThemeData(
       color: Colors.black87,
       fontSize: 20,
       fontWeight: FontWeight.w500,
+    ),
+    bodyLarge: const TextStyle(
+      color: Colors.black87,
+      fontSize: 25,
+      fontWeight: FontWeight.w700,
     ),
     labelSmall: TextStyle(color: Colors.grey[700], fontSize: 12),
   ),
@@ -36,7 +44,13 @@ final ThemeData darkMode = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     labelSmall: TextStyle(color: Colors.grey, fontSize: 12),
+    bodyLarge: TextStyle(
+      color: Colors.white,
+      fontSize: 25,
+      fontWeight: FontWeight.w700,
+    ),
   ),
+  colorScheme: const ColorScheme.dark(primary: Color.fromARGB(255, 73, 73, 73)),
   dividerColor: Colors.black54,
   listTileTheme: const ListTileThemeData(iconColor: Colors.white),
   appBarTheme: const AppBarTheme(
