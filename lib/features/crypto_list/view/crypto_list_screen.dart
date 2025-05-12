@@ -62,46 +62,50 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
           _cryptoListBloc.add(LoadCryptoList(completer: completer));
           return completer.future;
         },
-        child: BlocBuilder<CryptoListBloc, CryptoListBlocState>(
-          bloc: _cryptoListBloc,
-          builder: (context, state) {
-            if (state is CryptoListLoaded) {
-              return ListView.separated(
-                itemCount: state.coinsList.length,
-                itemBuilder: (context, i) {
-                  final coin = state.coinsList[i];
-                  return CryptoCoinTile(coin: coin);
-                },
-                separatorBuilder: (context, i) => const Divider(),
-              );
-            }
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: BlocBuilder<CryptoListBloc, CryptoListBlocState>(
+            bloc: _cryptoListBloc,
+            builder: (context, state) {
+              if (state is CryptoListLoaded) {
+                return ListView.builder(
+                  itemCount: state.coinsList.length,
+                  itemBuilder: (context, i) {
+                    final coin = state.coinsList[i];
+                    return CryptoCoinTile(coin: coin);
+                  },
+                  // separatorBuilder: (context, i) => const Divider(),
+                );
+              }
 
-            if (state is CryptoListLoadingFailure) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Something went wrong'),
-                    const Text(
-                      'Please try again later',
-                      style: TextStyle(color: Colors.grey, fontSize: 16),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: TextButton(
-                        onPressed: () => _cryptoListBloc.add(LoadCryptoList()),
-                        child: const Text(
-                          'Try again',
-                          style: TextStyle(color: Colors.amber),
+              if (state is CryptoListLoadingFailure) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Something went wrong'),
+                      const Text(
+                        'Please try again later',
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: TextButton(
+                          onPressed:
+                              () => _cryptoListBloc.add(LoadCryptoList()),
+                          child: const Text(
+                            'Try again',
+                            style: TextStyle(color: Colors.amber),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
+                    ],
+                  ),
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );
