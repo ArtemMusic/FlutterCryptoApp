@@ -1,4 +1,5 @@
 import 'package:crypto_app/crypto_app.dart';
+import 'package:crypto_app/features/crypto_coin/bloc/crypto_coin_bloc.dart';
 import 'package:crypto_app/repositories/crypro_coins/crypto_coins_repository.dart';
 import 'package:crypto_app/theme/theme_provider.dart';
 import 'package:dio/dio.dart';
@@ -8,6 +9,10 @@ import 'package:provider/provider.dart';
 
 void main() {
   GetIt.I.registerLazySingleton(() => CryptoCoinsRepository(dio: Dio()));
+
+  GetIt.I.registerFactoryParam<CryptoCoinBloc, String, void>((coinName, _) {
+    return CryptoCoinBloc(GetIt.I<CryptoCoinsRepository>(), coinName);
+  });
 
   runApp(
     ChangeNotifierProvider(
